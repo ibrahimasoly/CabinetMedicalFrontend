@@ -1,0 +1,70 @@
+<div class="container">
+    <div *ngIf="patient$|async as patient" style="margin-top: 10%;">
+        <div class="d-flex gap-5 justify-content-center">
+          <div class="dropdown-menu d-block position-static pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px">
+            <form class="p-2 mb-2 bg-light border-bottom">
+              <input type="search" class="form-control" autocomplete="false" placeholder="Type to filter...">
+            </form>
+            <ul class="list-unstyled mb-0">
+              <li *ngFor="let rdv of patient.rendez_vous">
+                <a class="dropdown-item d-flex align-items-center gap-2 py-2" routerLink="" (click)="onSubmit(rdv.consultaion.num_consul)">
+                <span class="d-inline-block bg-success rounded-circle p-1"></span>
+                  Consulation {{rdv.consultaion.num_consul}}
+              </a></li>
+            </ul>
+            </div>
+          </div>
+          <p style="margin-top: 10px;">
+            <strong>Patient:</strong>  {{patient.nom|uppercase}} {{patient.prenom|uppercase}} date de naissance {{patient.date_naissance|date:'le d MMM YYYY'}}
+          </p>  
+    </div>
+    <div class="container-sm" style="margin-top: 20px;">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information ordannance</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                          <th scope="col">Medicament</th>
+                          <th scope="col">Durée du jour</th>
+                          <th scope="col">Qauntité</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ord of ordonnance" >
+                          <td>{{ord.medicament}}</td>
+                          <td>{{ord.durejourprise}}</td>
+                          <td>{{ord.dose}}</td>
+                          <td><button  style="color: red;" (click)="supprimer(ord.num_ord)"><i class="bi bi-x-lg"></i></button></td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <button type="button" class="btn btn-primary" style="margin: 10px;" (click)="imprimer()">Imprimer</button>
+            </div>
+          </div>
+    </div>
+        <form style="margin-top: 10%;" [formGroup]="this.service_ordonnance.ordannanceform" (ngSubmit)="ajouter()" *ngIf="idConsultation">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="medicament" style="margin: 10px;">Medicament</label>
+                  <input type="text" id="medicament" class="form-control" placeholder="Nom du Medicament" aria-label="First name" formControlName="medicament">
+                </div>
+                <div class="col">
+                    <label for="durejourprise" style="margin: 10px;">Durée du jour</label>
+                  <input type="text" id="durejourprise" class="form-control" placeholder="durée du jour" aria-label="Last name" formControlName="durejourprise">
+                </div>
+                <div class="col">
+                    <label for="dose" style="margin: 10px;">Dose</label>
+                  <input type="text" id="dose" class="form-control" placeholder="Qauntité de dose" aria-label="Last name" formControlName="dose">
+                </div>
+              </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success" style="margin-top: 10px; margin-bottom: 20px;" [disabled]="this.service_ordonnance.ordannanceform.invalid"> Ajouter </button>
+            </div>
+          </form>
+</div>

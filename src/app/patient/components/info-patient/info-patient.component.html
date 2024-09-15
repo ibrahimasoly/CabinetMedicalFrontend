@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 30px;"> <button class="btn btn-success" type="button" (click)="ajouter_rdv(liste.num_patient)">Ajouter un RDV</button></div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information patient</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" *ngIf="this.serviceLogin.hasRole('ADMIN')">Dossier Medicale</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"  *ngIf="liste">
+    <div class="container overflow-hidden" style="display:flex; justify-content: left;" >
+      <div >
+        <img src="assets/inconnue.jpg" alt="" style="width: 15%; border-radius: 50%;">
+        <p><strong>{{liste.nom|uppercase}} </strong> <strong> {{liste.prenom|uppercase}}</strong></p>
+        <p><strong>Date de naissance :</strong> {{liste.date_naissance|date:'le d MMM YYYY'}}</p>
+        <p><strong>Sexe:</strong> {{liste.sexe}}</p>
+        <p><strong>Tel:</strong> {{liste.telephone}}</p>
+      </div>
+      <div class="col-md-6" >
+        <div class="row" *ngFor="let rdv5 of rdvs">
+          <h4><strong>Rendez-vous du:</strong>  {{rdv5.date_RDV|date:' d MMM YYYY'}}</h4>
+          <p><strong>Heure du rendez-vous:</strong> {{rdv5.heure}}</p>
+          <p><strong>Motif:</strong> {{rdv5.description}}</p>
+        </div>
+    </div>
+  </div>
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0" style="display:flex; justify-content: left;" *ngIf="liste">
+      <div class="d-flex flex-column flex-shrink-0 p-3 " style="width: 280px;"  >
+        <button type="button" class="btn btn-secondary" style="margin: 5px;" *ngFor="let rdv of liste.rendez_vous" (click)="afficherDossierMedicaleById(rdv.consultaion.num_consul)">consultation {{rdv.date_RDV}}</button>
+      </div>
+      <div class="p-5 mb-4  rounded-3" *ngIf="liste">
+        <div class="container-fluid py-5" *ngIf="consultation1">
+          <p>
+            <strong>Patient:</strong>  {{liste.nom|uppercase}} {{liste.prenom|uppercase}} date de naissance {{liste.date_naissance|date:'le d MMM YYYY'}}
+          </p>
+          <h3 style="text-align: center; margin-bottom: 5%;">Consulation</h3>
+            <p ><strong>Motif:</strong> {{ consultation1.motif}}</p>
+            <p><strong>Antécédents:</strong> {{ consultation1.antecedent}}</p>
+            <p><strong>Rapport:</strong> {{ consultation1.rapport}}</p>
+            <h3 style="text-align: center;">Ordonnance</h3>
+            <table class="table  table-borderless" style="margin-top: 5%;">
+              <thead>
+                <tr>
+                  <th scope="col">Madicament</th>
+                  <th scope="col">Durée du jour</th>
+                  <th scope="col">Quantité</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ord of consultation1.ordonnances">
+                  <td>{{ord.medicament}}</td>
+                  <td>{{ord.durejourprise}}</td>
+                  <td>  {{ord.dose}}</td>
+                </tr>
+            </table>
+            <h3 style="text-align: center; margin-bottom: 5%;">Bilan</h3>
+            <p *ngFor="let bilans of consultation1.bilans"> <strong>{{bilans.id}}</strong> {{bilans.nomBilan}} </p>
+        </div>
+      </div>
+    </div>
+</div>

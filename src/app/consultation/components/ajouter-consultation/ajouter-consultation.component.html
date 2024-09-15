@@ -1,0 +1,43 @@
+<div class="container">
+    <div style="width: 80%; margin-top: 20px;">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Choisir un patient
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body" >
+                    <div class="d-grid"  *ngFor="let liste of listes">
+                        <button class="btn"  *ngFor="let rdv3 of liste.rendez_vous" (click)="afficherPatientBy(rdv3.num_RDV, liste.num_patient)"   style="text-align: left;" > {{liste.nom}} {{liste.prenom}} date le {{rdv3.date_RDV|date:"d MMM YYYY"}} rendez-vous {{rdv3.num_RDV}} </button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div style="width: 50%; height: 50px;" *ngIf="rdv">
+      <p>{{rdv.num_RDV}}</p>
+        <form  [formGroup]="this.service_consultation.patientConsultationform" (ngSubmit)="ajouter()">
+            <div class="col-12">
+              <label for="motif" class="form-label">Motif</label>
+              <input type="text" class="form-control" id="motif" formControlName="motif" placeholder="motif">
+            </div>
+            <div class="col-12">
+              <label for="antecedent" class="form-label">Antécédent</label>
+              <input type="text" class="form-control" id="antecedent" formControlName="antecedent" placeholder="Médicaux , Chirurgicaux">
+            </div>
+            <div class="col-12">
+              <label for="rapport" class="form-label">Resultat de l'examen</label>
+              <textarea type="text" class="form-control" id="rapport" formControlName="rapport" rows="2"></textarea>
+            </div>
+            <p>
+                
+            </p>
+            <div class="col-12">
+              <button type="submit" [disabled]="this.service_consultation.patientConsultationform.invalid" class="btn btn-success"> Ajouter </button>
+            </div>
+          </form>
+    </div>
+</div>

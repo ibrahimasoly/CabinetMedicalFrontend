@@ -1,0 +1,28 @@
+<div class="container">
+    <div style="width: 50%; margin-left: 20%; margin-top: 5%;">
+        <form class="row g-3" [formGroup]="this.service.patientform" (ngSubmit)="onSubmit()">
+            <div class="col-12">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="nom" placeholder="nom de famille" aria-label="First name" formControlName="nom" required>
+            </div>
+            <div class="col-12">
+              <label for="prenom" class="form-label">Prenom</label>
+              <input type="text" class="form-control" id="prenom" placeholder="prenom" aria-label="Last name" formControlName="prenom" required>
+            </div>
+            <div class="col-12">
+              <label for="date_naissance" class="form-label">Date de naissance</label>
+              <input type="date" class="form-control" id="date_naissance" aria-label="date" formControlName="date_naissance" required>
+            </div>
+            <div class="col-md-6">
+              <label for="sexe" class="form-label">Sexe</label>
+              <input type="text" class="form-control" id="sexe" placeholder="M ou F" formControlName="sexe" required>
+            </div>
+            <div class="col-md-6">
+              <label for="telephone" class="form-label">Telephone</label>
+              <input type="tel" class="form-control" id="telephone" formControlName="telephone" required>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success" [disabled]="this.service.patientform.invalid">Ajouter</button>
+            </div>
+          </form></div>
+</div>

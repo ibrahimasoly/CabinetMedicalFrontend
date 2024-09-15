@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 30px;">
+    <form class="d-flex" [formGroup]="this.Patient_service.patientform" (ngSubmit)="recherche()">
+      <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" formControlName="nom">
+      <button class="btn btn-outline-success" type="submit">Recherche</button>
+    </form>
+  
+    <button class="btn btn-success" type="button" (click)="save()">Ajouter un patient</button>
+  </div>
+  <table class="table caption-top">
+      <caption><h3><strong>Liste des patients</strong></h3></caption>
+      <thead>
+        <tr>
+          <th scope="col">Nom</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Date-naissance</th>
+          <th scope="col">Sexe</th>
+          <th scope="col">Telephone</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of listpatient$ |async">
+          <td>{{patient.nom|uppercase}}</td>
+          <td>{{patient.prenom|uppercase}}</td>
+          <td>{{patient.date_naissance|date:'d MMM YYYY'}}</td>
+          <td>{{patient.sexe}}</td>
+          <td>{{patient.telephone}}</td>
+          <td colspan="3"><button  (click)="edite(patient)" style="color: rgb(78, 160, 133);" ><i class="bi bi-pencil-square"></i></button></td>
+          <td><button (click)="info_patient(patient.num_patient)" style="color: blue;"><i class="bi bi-info-circle"></i></button></td>
+          <td><button (click)="supprimer(patient.num_patient)" style="color: red;"><i class="bi bi-x-lg"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+</div>

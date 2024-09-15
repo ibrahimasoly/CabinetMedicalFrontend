@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg fixed"  style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Cabinet Medicale</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/acceuil" >Acceuil</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Patient
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/acceuil/liste patient" >Liste des patients</a></li>
+            <li><a class="dropdown-item" routerLink="/acceuil/ajouter patient" >Ajouter un patient</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Rendez-vous
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/acceuil/liste rdv">Liste des rendez_vous</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="this.serviceLogin.hasRole('ADMIN')">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Consultation
+          </a>
+          <ul class="dropdown-menu" >
+            <li><a class="dropdown-item" routerLink="/acceuil/liste patientConsulter">Liste des consultations</a></li>
+            <li><a class="dropdown-item" routerLink="" (click)="ajouter()">Ajouter une consultation</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <a class="nav-link">
+          <li> {{this.serviceLogin.authenticatedUser!.username}}</li>
+        </a>
+        <a class="btn" (click)="deconnecter()">
+          <i class="bi bi-box-arrow-right"></i>
+        </a>
+      </ul>
+    </div>
+  </div>
+</nav>

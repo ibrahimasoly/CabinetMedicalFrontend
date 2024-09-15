@@ -1,0 +1,30 @@
+<div class="container">
+    <button type="button" class="btn btn-primary" style="margin-top: 30px; margin-right: 10px;" (click)="onEdite(consultations.num_consul)">Ordonnance</button>
+    <button type="button" class="btn btn-primary" style="margin-top: 30px; margin-right: 10px;" (click)="onSubmit(consultations.num_consul)">Billan</button>
+    <button type="button" class="btn btn-primary" style="margin-top: 30px; margin-right: 10px;" (click)="rdv(consultations.num_consul)">Prochain RDV</button>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Information patient</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Information de la consultation</button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Payement</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0" *ngIf="patient" >
+          <img src="assets/inconnue.jpg" alt="" style="width: 15%; border-radius: 50%;">
+          <p><strong>Patient : {{patient.nom|uppercase}} </strong> <strong> {{patient.prenom|uppercase}} </strong></p>
+          <p><strong>Date de naissance :</strong> {{patient.date_naissance|date:'le d MMM YYYY'}} </p>
+          <p><strong>Sexe :</strong> {{patient.sexe}} </p>
+          <p><strong>Tel :</strong> {{patient.telephone}} </p>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0" *ngIf="consultations">
+          <div >
+            <p><strong>Motif:</strong> {{consultations.motif}} </p>
+            <p><strong>Antécédent:</strong> {{consultations.antecedent}} </p>
+            <p><strong>Resultat:</strong> {{consultations.rapport}} </p>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+        </div>
+      </div>
+</div>
